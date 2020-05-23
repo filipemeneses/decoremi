@@ -1,12 +1,12 @@
 <div
 	class="AnsweredMessage"
-    on:click={() => dispatch('continue')}  
+    on:click={() => dispatch('continue')}
 	  in:surge={{ y: 64, duration: 280 }}
     style={`border-color: ${color}`}
 >
     <div class="container">
 		<div class="message" in:fade={{ duration: 280, delay: 280 }}>
-			<div class="emoji" in:fade={{ duration: 280, delay: 360 }}>{correctAnswer === chosedNote ? '👍' : '👎'}</div>
+			<div class="emoji" in:fade={{ duration: 280, delay: 360 }}>{correctAnswer.index === chosedNote.index ? '👍' : '👎'}</div>
 			<div class="arrow" in:fly={{ x: -15, duration: 280, delay: 360 }}><ArrowRight/></div>
 		</div>
 	</div>
