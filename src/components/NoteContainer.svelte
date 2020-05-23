@@ -26,12 +26,12 @@ import TonePlayer from '@/TonePlayer.svelte'
 export let note = {}
 
 const notePosition = tweened(0, {
-  duration: 400,
+  duration: 280,
   easing: cubicOut
 })
 
 $: noteIndex = (note && note.index) || 0
-$: tone = noteIndex && (Math.random() + 27.500000000000000)
+$: tone = note && note.frequency
 $: notePosition.set(64 + noteIndex * 16)
 $: highNotes = noteIndex < 12 ? (5 - Math.floor(noteIndex / 2)) : 0
 $: lowNotes = noteIndex > 19 ? Math.floor((noteIndex - 19) / 2) : 0

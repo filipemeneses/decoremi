@@ -22,7 +22,7 @@ const MAX_INDEX = 24
 let randomIndexes = []
 
 $: step % (MAX_INDEX - MIN_INDEX) === 0 && (randomIndexes = shuffle(Array.from(Array(MAX_INDEX - MIN_INDEX + 1)).map((_, i) => MIN_INDEX + i)))
-$: currentNote = randomNoteGivenStep(randomIndexes[step])
+$: currentNote = noteInterface(randomIndexes[step])
 $: pairNote = randomNoteExcluding(currentNote.index)
 $: notes = [...(currentNote.index % 2 ? [currentNote, pairNote] : [pairNote, currentNote])]
 $: isCorrect = chosedNote === currentNote
@@ -45,8 +45,8 @@ function shuffle (array) {
   return result
 }
 function nextStep () {
-  step += 1
   chosedNote = null
+  step = (step + 1) % (MAX_INDEX - MIN_INDEX)
 }
 function chooseNote (note) {
   if (isAnswered) return
