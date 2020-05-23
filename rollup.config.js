@@ -3,6 +3,8 @@ import path from 'path'
 import resolve from '@rollup/plugin-node-resolve'
 import replace from '@rollup/plugin-replace'
 import commonjs from '@rollup/plugin-commonjs'
+import json from '@rollup/plugin-json'
+
 import alias from '@rollup/plugin-alias'
 import svelte from 'rollup-plugin-svelte'
 import babel from 'rollup-plugin-babel'
@@ -31,6 +33,9 @@ export default {
         entries: [
           { find: '@', replacement: path.resolve(projectRootDir, path.join('src', 'components')) }
         ]
+      }),
+      json({
+        compact: true
       }),
       svelte({
         dev,
@@ -80,6 +85,9 @@ export default {
         entries: [
           { find: '@', replacement: path.resolve(projectRootDir, path.join('src', 'components')) }
         ]
+      }),
+      json({
+        compact: true
       }),
       svelte({
         generate: 'ssr',

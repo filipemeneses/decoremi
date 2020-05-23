@@ -1,44 +1,44 @@
 <div
 	class="AnsweredMessage"
     on:click={() => dispatch('continue')}  
-	in:surge={{y: 64, duration: 280}}
+	  in:surge={{ y: 64, duration: 280 }}
     style={`border-color: ${color}`}
 >
     <div class="container">
-		<div class="message" in:fade={{duration: 280, delay: 280}}>
-			<div class="emoji" in:fade={{duration: 280, delay: 360}}>{correctAnswer === chosedNote ? "👍" : "👎"}</div>
-			<div class="arrow" in:fly={{x: -15, duration: 280, delay: 360}}><ArrowRight/></div>
+		<div class="message" in:fade={{ duration: 280, delay: 280 }}>
+			<div class="emoji" in:fade={{ duration: 280, delay: 360 }}>{correctAnswer === chosedNote ? '👍' : '👎'}</div>
+			<div class="arrow" in:fly={{ x: -15, duration: 280, delay: 360 }}><ArrowRight/></div>
 		</div>
 	</div>
 </div>
 
 <script>
-	import ArrowRight from '@/ArrowRight.svelte'
-	import { createEventDispatcher } from 'svelte';
-	import { fade, fly } from 'svelte/transition';
-	import { sineIn } from 'svelte/easing';
+import ArrowRight from '@/ArrowRight.svelte'
+import { createEventDispatcher } from 'svelte'
+import { fade, fly } from 'svelte/transition'
+import { sineIn } from 'svelte/easing'
 
-    const dispatch = createEventDispatcher();
+const dispatch = createEventDispatcher()
 
-	export let correctAnswer
-    export let chosedNote
-    
-    $: color = correctAnswer === chosedNote ? 'green' : 'orange'
+export let correctAnswer
+export let chosedNote
 
-	function surge(node, { duration }) {
-		return {
-			duration,
-			css: t => {
-				const eased = sineIn(t);
+$: color = correctAnswer === chosedNote ? 'green' : 'orange'
 
-				return `
-					transform: scaleX(${eased});
-					transform-origin: bottom left;
-					will-change: transform;
-				`
-			}
-		};
-	}
+function surge (node, { duration }) {
+  return {
+    duration,
+    css: t => {
+      const eased = sineIn(t)
+
+      return `
+          transform: scaleX(${eased});
+          transform-origin: bottom left;
+          will-change: transform;
+        `
+    }
+  }
+}
 </script>
 
 <style>

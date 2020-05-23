@@ -5,7 +5,7 @@
         <rect x="309" y={32 + 128 + (6 * 32) - 128} width="13" height="130"/>
         <path transform={`translate(160 ${$notePosition})`} d="M32.14-31.16L32.14-31.16Q43.46-31.16 51.33-26.81Q59.20-22.47 59.20-14.43L59.20-14.43Q59.20-6.72 51.50-2.54Q43.79 1.64 32.96 1.64L32.96 1.64Q21.65 1.64 13.94-2.62Q6.23-6.89 6.23-15.25L6.23-15.25Q6.23-21.16 11.07-24.93Q15.91-28.70 21.32-29.93Q26.73-31.16 32.14-31.16ZM23.29-19.52L23.29-19.52Q23.29-12.63 26.40-7.38Q29.52-2.13 34.44-2.13L34.44-2.13Q41.98-2.13 41.98-10.33L41.98-10.33Q41.98-16.89 38.95-22.06Q35.92-27.22 30.67-27.22L30.67-27.22Q23.29-27.22 23.29-19.52Z"/>
         {#each Array(highNotes) as _, index}
-            <rect x="160" y={32 + (32 * 5) - (index * 32)} width="60" height="2" in:fly="{{ y: 32 + (32 * 5) - (index * 32), duration: 200 }}" out:fly="{{ y: 32 + (32 * 5), duration: 200}}"/>
+            <rect x="160" y={32 + (32 * 5) - (index * 32)} width="60" height="2" in:fly="{{ y: 32 + (32 * 5) - (index * 32), duration: 200 }}" out:fly="{{ y: 32 + (32 * 5), duration: 200 }}"/>
         {/each}
         {#each Array(5) as _, index}
             <rect x="0" y={32 + (6 + index) * 32} width="320" height="2"/>
@@ -14,23 +14,27 @@
             <rect x="160" y={32 + (6 + 5 + index) * 32} width="60" height="2" in:fly="{{ y: 32 + (6 + 5 + index) * 32, duration: 200 }}" out:fly={{ y: 32 + (6 + 5) * 32, duration: 200 }}/>
         {/each}
     </svg>
+    <TonePlayer note={note}/>
 </div>
 
 <script>
-	import { fly } from 'svelte/transition';
-	import { tweened } from 'svelte/motion';
-	import { cubicOut } from 'svelte/easing';
+import { fly } from 'svelte/transition'
+import { tweened } from 'svelte/motion'
+import { cubicOut } from 'svelte/easing'
+import TonePlayer from '@/TonePlayer.svelte'
 
-    export let note
+export let note = {}
 
-	let notePosition = tweened(0, {
-		duration: 400,
-		easing: cubicOut
-    });
+const notePosition = tweened(0, {
+  duration: 400,
+  easing: cubicOut
+})
 
-    $: notePosition.set(64 + note * 16)
-    $: highNotes = note < 12 ? (6 - Math.floor(note / 2)) : 0
-    $: lowNotes = note > 19 ? Math.floor((note - 19) / 2) : 0
+$: noteIndex = (note && note.index) || 0
+$: tone = noteIndex && (Math.random() + 27.500000000000000)
+$: notePosition.set(64 + noteIndex * 16)
+$: highNotes = noteIndex < 12 ? (5 - Math.floor(noteIndex / 2)) : 0
+$: lowNotes = noteIndex > 19 ? Math.floor((noteIndex - 19) / 2) : 0
 </script>
 
 <style>

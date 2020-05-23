@@ -25,6 +25,7 @@ module.exports = {
     }
   ],
   rules: {
-    'no-multiple-empty-lines': 0
+    'no-multiple-empty-lines': 0,
+    'import/first': 0
   }
 }

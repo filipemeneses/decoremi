@@ -1,7 +1,7 @@
 	
 <div class="notes" out:fade>
 	{#each notes as note}
-		<div class="note" on:click={choose(note)}>{getNoteName(note)}</div>
+		<div class="note" on:click={choose(note)}>{note.name}<sub>{note.octave}</sub></div>
 	{/each}
 </div>
 
@@ -12,13 +12,9 @@
 	export let notes = []
 
 	const dispatch = createEventDispatcher();
-	let noteNames = ['C','D', 'E', 'F', 'G', 'A', 'B']
 
 	function choose(note) {
 		dispatch('choose', note);
-	}
-	function getNoteName (note) {
-		return noteNames[note % 7]
 	}
 </script>
 
